@@ -1,4 +1,6 @@
-
+if (-not (Get-Module -Name dbatools)) {
+      Install-Module dbatools
+}
 
 $servers=Get-Content C:\BACKUP\server.txt
 $database = 'maintenance'
