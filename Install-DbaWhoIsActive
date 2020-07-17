@@ -1,0 +1,22 @@
+
+
+$servers=Get-Content C:\BACKUP\server.txt
+$database = 'maintenance'
+foreach($server in $servers)
+{
+
+$server = New-Object Microsoft.SqlServer.Management.Smo.Server -ArgumentList $server
+ 
+$dbcheck = $server.Databases | Where-Object { $_.Name -eq $database }
+ 
+if ($null -eq $dbcheck){
+    $db = New-Object -TypeName Microsoft.SqlServer.Management.Smo.Database -Argumentlist $server, $database 
+    $db.Create()
+}
+Else {
+  Install-DbaWhoIsActive -SqlInstance $server -database $database   
+  Install-DbaFirstResponderKit -SqlInstance $server -Database $database
+  Install-DbaSqlWatch -SqlInstance $server
+  Install-DbaMaintenanceSolution -SqlInstance $server -Database $database -ReplaceExisting
+}
+}
