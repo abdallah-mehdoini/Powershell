@@ -1,0 +1,22 @@
+#check if dbotools-module is installed if not install them
+if (-not (Get-Module -Name dbatools)) {
+      Install-Module dbatools
+}
+
+
+$SharedPath="C:\BACKUP"
+$copyParams = @{
+    Source = "localhost"
+    Destination = "DESKTOP-95KKMMH\PRODUCTION"
+    SharedPath = "C:\BACKUP"
+    BackupRestore = $True
+   # Database='abdallah'
+    
+}
+
+#clean up the transfer share
+
+
+Get-ChildItem -Path  $SharedPath  -Include *.bak -File -Recurse | Remove-Item -Recurse -Force -Confirm:$false  -Verbose | Add-Content C:\BACKUP\test.txt
+
+Copy-DbaDatabase @copyParams  -force  -AllDatabases | Add-Content C:\BACKUP\test.txt
