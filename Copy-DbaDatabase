@@ -17,6 +17,5 @@ $copyParams = @{
 #clean up the transfer share
 
 
-Get-ChildItem -Path  $SharedPath  -Include *.bak -File -Recurse | Remove-Item -Recurse -Force -Confirm:$false  -Verbose | Add-Content C:\BACKUP\test.txt
-
-Copy-DbaDatabase @copyParams  -force  -AllDatabases | Add-Content C:\BACKUP\test.txt
+Get-ChildItem -Path  $SharedPath  -Include *.bak -File -Recurse | Remove-Item -Recurse -Force -Confirm:$false  -Verbose  4>&1 | Add-Content C:\backup\test2.txt
+Copy-DbaDatabase @copyParams  -force  -AllDatabases  
