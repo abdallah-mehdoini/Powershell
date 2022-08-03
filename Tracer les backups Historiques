@@ -1,0 +1,7 @@
+$servers ='DESKTOP-95KKMMH,DESKTOP-95KKMMH\test'
+Foreach($server in $servers)
+{
+$backuphistory=Get-DbaDbBackupHistory -SqlInstance DESKTOP-95KKMMH ,DESKTOP-95KKMMH\test
+}
+
+$backuphistory | Write-DbaDataTable -SqlInstance DESKTOP-95KKMMH -Database DBA -Table dbo.processes -AutoCreateTable -Truncate
